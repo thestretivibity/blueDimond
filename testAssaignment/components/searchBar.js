@@ -5,12 +5,13 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  BackHandler,
+  Image,
   Keyboard,
 } from 'react-native';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLORS, SIZES} from '../constants/theme';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const SearchBar = ({navigation}) => {
   const [isSearching, setIsSearching] = useState(false);
@@ -38,16 +39,24 @@ const SearchBar = ({navigation}) => {
         <TextInput
           ref={inputRef}
           style={{flex: 1}}
-          //   onBlur={() => setIsSearching(false)}
-          //   onFocus={() => setIsSearching(true)}
-          //   onPointerCancel={() => setIsSearching(false)}
           fontSize={SIZES.underTitle}
           onChangeText={text => setSearchQuery(text)}
           onSubmitEditing={() =>
-            searchQuery.length > 0 && navigation.navigate('Search')
+            searchQuery.length > 0 &&
+            navigation.navigate('Search', {query: searchQuery})
           }
           placeholder={'Search for articles...'}></TextInput>
-        <TouchableOpacity style={styles.searchButton}></TouchableOpacity>
+        <TouchableOpacity
+          style={styles.searchButton}
+          onPress={() =>
+            searchQuery.length > 0 &&
+            navigation.navigate('Search', {query: searchQuery})
+          }>
+          <Image
+            style={{width: 30, height: 30}}
+            source={require('../assets/images/search.png')}
+          />
+        </TouchableOpacity>
       </View>
       {isSearching && (
         <View style={{marginBottom: 2000}}>
@@ -86,10 +95,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   searchButton: {
-    height: 45,
-    width: 45,
+    height: 40,
+    width: 40,
     borderRadius: 25,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.white,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 export default SearchBar;

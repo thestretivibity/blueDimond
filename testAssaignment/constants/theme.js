@@ -6,6 +6,14 @@ export const COLORS = {
   creme: '#EEEEEE',
   darkGray: '#403E3E',
   darkCreme: '#C8C8C8',
+  yellow: '#e3c668',
+  green: '#28913a',
+  successGreen: '#4cbba1',
+  strongGreen: '#62c654',
+  lightGray: '#9f9f9f',
+  aliceBlue: '#eef1f5',
+  royalBlue: '#011936',
+  blueCadet: '#111D4A',
 };
 
 export const SIZES = {

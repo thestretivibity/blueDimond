@@ -5,6 +5,7 @@ import {
   Image,
   StyleSheet,
   KeyboardAvoidingView,
+  ImageBackground,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -26,13 +27,23 @@ export default function Home({navigation}) {
         enabled={false}
         style={styles.categoryContainer}>
         {/* sience category */}
+        {/* world */}
         <TouchableOpacity
           style={styles.category}
           onPress={() => navigation.navigate('TopNews')}>
-          <BigTitle text={'WORLD'}></BigTitle>
+          <ImageBackground
+            source={require('../assets/images/worldNews.png')}
+            style={{flex: 1, padding: 10}}>
+            <BigTitle _color={COLORS.creme} text={'WORLD'}></BigTitle>
+          </ImageBackground>
         </TouchableOpacity>
+        {/* sience */}
         <TouchableOpacity style={styles.category}>
-          <BigTitle text="SCIENCE"></BigTitle>
+          <ImageBackground
+            source={require('../assets/images/science.jpg')}
+            style={{flex: 1, padding: 10}}>
+            <BigTitle _color={COLORS.creme} text={'SCIENCE'}></BigTitle>
+          </ImageBackground>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>

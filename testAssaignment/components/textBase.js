@@ -2,8 +2,8 @@ import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 import {SIZES, COLORS} from '../constants/theme';
 
-export const BigTitle = props => {
-  return <Text style={styles.bigTitle}>{props.text}</Text>;
+export const BigTitle = ({text, _color = COLORS.black}) => {
+  return <Text style={[styles.bigTitle, {color: _color}]}>{text}</Text>;
 };
 
 export const UnderTitle = props => {
@@ -19,8 +19,8 @@ export const Title = props => {
   return <Text style={styles.title}>{props.text}</Text>;
 };
 
-export const SmallTitle = props => {
-  return <Text style={styles.smallTitle}>{props.text}</Text>;
+export const SmallTitle = ({text, _color = COLORS.secondary}) => {
+  return <Text style={[styles.smallTitle, {color: _color}]}>{text}</Text>;
 };
 
 const textBase = {BigTitle, UnderTitle, ContentText, Title, SmallTitle};

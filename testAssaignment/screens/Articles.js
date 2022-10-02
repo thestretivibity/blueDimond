@@ -1,4 +1,4 @@
-import {ThemeProvider} from '@react-navigation/native';
+import {Link, ThemeProvider} from '@react-navigation/native';
 import React from 'react';
 import {
   View,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   FlatList,
   ScrollView,
+  Linking,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Comment from '../components/comment';
@@ -20,7 +21,8 @@ import {
 } from '../components/textBase';
 import {COLORS} from '../constants/theme';
 
-export default function Article({navigation}) {
+export default function Article({route, navigation}) {
+  const {title, abstract, url, byline, created_date, multimedia} = route.params;
   const renderComment = ({item}) => (
     <Comment
       commentBody={item.commentBody}
@@ -28,54 +30,57 @@ export default function Article({navigation}) {
       createDate={item.createDate}
     />
   );
+
+  const NewsArticle = () => {
+    return (
+      <View style={styles.article}>
+        <Title text={title} />
+        <SmallTitle text={byline} />
+        <SmallTitle
+          text={new Date(created_date).toLocaleDateString('en-US')}
+          _color={COLORS.darkGray}
+        />
+        <Image
+          resizeMode={'cover'}
+          source={{uri: multimedia[1]?.url}}
+          style={styles.articleImage}></Image>
+
+        <ContentText text={abstract} />
+        {/* continue on nyt.com */}
+        <TouchableOpacity
+          style={styles.gotoNYT}
+          onPress={() => Linking.openURL(url)}>
+          <UnderTitle
+            text={'Continue reading in NYT.com'}
+            color={COLORS.black}
+          />
+        </TouchableOpacity>
+        <BigTitle text={'Comments'} style={{marginBottom: 5}} />
+      </View>
+    );
+  };
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.headerWrappr}>
-      <ScrollView nestedScrollEnabled={false}>
-        <View style={styles.article}>
-          <Title
-            text={
-              'Downpours From Ian Prompt Florida Treatment Plants to Release Waste'
-            }
-          />
-          <SmallTitle text={'By Seth McFacrlen'} />
-          <Image resizeMode={'cover'} style={styles.articleImage}></Image>
-
-          <ContentText
-            text={
-              'Concern turns to industrial sites and huge farms farther north as the storm heads toward South Carolina'
-            }
-          />
-          {/* continue on nyt.com */}
-          <TouchableOpacity style={styles.gotoNYT}>
-            <UnderTitle
-              text={'Continue reading in NYT.com'}
-              color={COLORS.black}
-            />
-          </TouchableOpacity>
-        </View>
-        {/* comments */}
-        <View style={styles.comments}>
-          <BigTitle text={'Comments'} />
-          <FlatList
-            style={{marginTop: 10}}
-            data={DATA}
-            renderItem={renderComment}
-            keyExtractor={item => item.commentID}
-          />
-        </View>
-      </ScrollView>
+      <View style={styles.comments}>
+        <FlatList
+          style={{padding: 20, marginBottom: 5}}
+          data={DATA}
+          renderItem={renderComment}
+          keyExtractor={item => item.commentID}
+          ListHeaderComponent={NewsArticle}
+        />
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   headerWrappr: {
-    padding: 20,
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
-  article: {},
+  article: {marginBottom: 15},
   articleImage: {
     backgroundColor: COLORS.darkCreme,
     width: null,

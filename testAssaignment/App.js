@@ -62,6 +62,16 @@ function StackNavigator({navigation}) {
         headerStyle: {backgroundColor: '#fff', elevation: 5},
       }}>
       <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forBottomSheetAndroid,
+          headerShown: false,
+          headerTitle: 'Home',
+          animationEnabled: true,
+        }}
+      />
+      <Stack.Screen
         name="Article"
         component={Article}
         options={{
@@ -73,16 +83,6 @@ function StackNavigator({navigation}) {
         }}
       />
 
-      <Stack.Screen
-        name="Home"
-        component={Home}
-        options={{
-          cardStyleInterpolator: CardStyleInterpolators.forBottomSheetAndroid,
-          headerShown: false,
-          headerTitle: 'Home',
-          animationEnabled: true,
-        }}
-      />
       <Stack.Screen
         name="TopNews"
         component={TopNews}

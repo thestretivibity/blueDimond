@@ -11,7 +11,7 @@ import {
 
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLORS, SIZES} from '../constants/theme';
-import {ContentText, SmallTitle} from './textBase';
+import {BigTitle, ContentText, SmallTitle} from './textBase';
 
 function toDateTime(secs) {
   var t = new Date(1970, 0, 1); // Epoch
@@ -21,7 +21,9 @@ function toDateTime(secs) {
 const Comment = ({commentID, userDisplayName, createDate, commentBody}) => {
   return (
     <View style={styles.content}>
-      <View style={styles.profile}></View>
+      <View style={styles.profile}>
+        <BigTitle text={`${userDisplayName[0]}`} />
+      </View>
       <View style={styles.commentContainer}>
         <Text style={styles.userName}>{userDisplayName}</Text>
         <Text style={styles.commentDate}>
@@ -36,7 +38,7 @@ const Comment = ({commentID, userDisplayName, createDate, commentBody}) => {
 const styles = StyleSheet.create({
   content: {flexDirection: 'row'},
   userName: {
-    color: COLORS.primary,
+    color: COLORS.blueCadet,
     fontSize: SIZES.byLine,
     fontWeight: 'bold',
   },
@@ -59,6 +61,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.darkCreme,
     marginRight: 5,
     marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
