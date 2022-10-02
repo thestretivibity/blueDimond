@@ -26,13 +26,16 @@ const TopNewsItem = ({
   byline,
   created_date,
   multimedia,
+  category,
   navigation,
 }) => {
   return (
     <View style={styles.content}>
       <Image
         style={styles.articleImage}
-        source={{uri: multimedia[1]?.url}}></Image>
+        source={{
+          uri: multimedia[1]?.url,
+        }}></Image>
       <View style={styles.articleView}>
         <View>
           <Title text={title} />
@@ -49,6 +52,7 @@ const TopNewsItem = ({
               byline,
               created_date,
               multimedia,
+              category,
             })
           }>
           <SmallTitle text={'Continue'} />

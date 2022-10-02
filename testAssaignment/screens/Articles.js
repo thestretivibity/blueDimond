@@ -23,7 +23,8 @@ import useApi from '../hooks/ApiUsage';
 import {COLORS} from '../constants/theme';
 
 export default function Article({route, navigation}) {
-  const {title, abstract, url, byline, created_date, multimedia} = route.params;
+  const {title, abstract, url, byline, created_date, multimedia, category} =
+    route.params;
   console.log(url);
   const {
     data,
@@ -33,6 +34,7 @@ export default function Article({route, navigation}) {
   } = useApi(ApiCall.getComments, url);
   useEffect(() => {
     getComments(url);
+    navigation.setOptions({headerTitle: `${category}`.toUpperCase()});
   }, []);
   useEffect(() => {
     if (error) navigation.navigate('Home');

@@ -78,7 +78,7 @@ function StackNavigator({navigation}) {
           cardStyleInterpolator:
             CardStyleInterpolators.forScaleFromCenterAndroid,
           headerShown: true,
-          headerTitle: '',
+          headerTitle: 'test',
           animationEnabled: true,
         }}
       />

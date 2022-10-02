@@ -12,7 +12,13 @@ const getComments = url =>
     'community/V3/requestHandler?cmd=GetCommentsAll&url=' + url,
   );
 
+const getArticles = category =>
+  clientApi.apiClient(
+    `topstories/v2/${category}.json?api-key=NVsCqBUzlU4WJRBYiCisq3FTjhcmciZ4`,
+  );
+
 export default {
   searchArticles,
   getComments,
+  getArticles,
 };

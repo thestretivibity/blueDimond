@@ -11,12 +11,12 @@ import {
 
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLORS, SIZES} from '../constants/theme';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const SearchBar = ({navigation}) => {
   const [isSearching, setIsSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const inputRef = useRef(null);
+  const [storedQueries, setStoredQueries] = useState('');
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -63,11 +63,7 @@ const SearchBar = ({navigation}) => {
           {/* Alert: here will go the previous searched query(last 5) */}
           {/* suggestion to make asynch storage with key being the user name + searchHistory */}
           <View style={{}}>
-            <Text>Microsoft</Text>
-            <Text>Microsoft</Text>
-            <Text>Microsoft</Text>
-            <Text>Microsoft</Text>
-            <Text>Microsoft</Text>
+            <Text style={{color: '#000'}}>{storedQueries}</Text>
           </View>
         </View>
       )}

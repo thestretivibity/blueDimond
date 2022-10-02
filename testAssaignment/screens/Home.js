@@ -26,11 +26,11 @@ export default function Home({navigation}) {
         behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         enabled={false}
         style={styles.categoryContainer}>
-        {/* sience category */}
+        {/* science category */}
         {/* world */}
         <TouchableOpacity
           style={styles.category}
-          onPress={() => navigation.navigate('TopNews')}>
+          onPress={() => navigation.navigate('TopNews', {category: 'world'})}>
           <ImageBackground
             source={require('../assets/images/worldNews.png')}
             style={{flex: 1, padding: 10}}>
@@ -38,7 +38,9 @@ export default function Home({navigation}) {
           </ImageBackground>
         </TouchableOpacity>
         {/* sience */}
-        <TouchableOpacity style={styles.category}>
+        <TouchableOpacity
+          style={styles.category}
+          onPress={() => navigation.navigate('TopNews', {category: 'science'})}>
           <ImageBackground
             source={require('../assets/images/science.jpg')}
             style={{flex: 1, padding: 10}}>

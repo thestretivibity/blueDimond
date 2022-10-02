@@ -13,7 +13,7 @@ export default function useApi(apiFunc, query) {
       setLoading(false);
       return setError(true);
     }
-    // console.log(response);
+    console.log(response.data.results);
     setError(false);
     setData(response.data);
     setLoading(false);
