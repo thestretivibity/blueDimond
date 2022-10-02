@@ -9,11 +9,11 @@ export default function useApi(apiFunc, query) {
     setLoading(true);
     const response = await apiFunc(query);
     if (response.status != 200) {
-      console.log(response);
+      //  console.log(response);
       setLoading(false);
       return setError(true);
     }
-    //console.log(response.data.response.docs);
+    // console.log(response);
     setError(false);
     setData(response.data);
     setLoading(false);

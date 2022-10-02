@@ -6,7 +6,12 @@ const apiClient = create({
   //   Authorization: "Bearer " + { token },
   // },
 });
-
+const apiClientPUBLIC = create({
+  baseURL: 'https://www.nytimes.com/svc/',
+  // headers: {
+  //   Authorization: "Bearer " + { token },
+  // },
+});
 const apiClientToken = create({
   baseURL: 'https://###/pub',
   headers: {
@@ -17,5 +22,6 @@ const apiClientToken = create({
 
 export default {
   apiClient,
+  apiClientPUBLIC,
   apiClientToken,
 };

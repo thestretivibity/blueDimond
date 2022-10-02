@@ -44,7 +44,7 @@ export default function Search({route, navigation}) {
         {!loading && (
           <FlatList
             style={{marginTop: 20, marginBottom: 10}}
-            data={data.response.docs}
+            data={data?.response?.docs}
             renderItem={renderResult}
             keyExtractor={item => item.web_url}
           />

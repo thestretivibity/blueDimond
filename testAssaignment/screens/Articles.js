@@ -1,5 +1,4 @@
-import {Link, ThemeProvider} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -19,10 +18,29 @@ import {
   ContentText,
   UnderTitle,
 } from '../components/textBase';
+import ApiCall from '../API/ApiCall';
+import useApi from '../hooks/ApiUsage';
 import {COLORS} from '../constants/theme';
 
 export default function Article({route, navigation}) {
   const {title, abstract, url, byline, created_date, multimedia} = route.params;
+  console.log(url);
+  const {
+    data,
+    error,
+    loading,
+    request: getComments,
+  } = useApi(ApiCall.getComments, url);
+  useEffect(() => {
+    getComments(url);
+  }, []);
+  useEffect(() => {
+    if (error) navigation.navigate('Home');
+    if (!loading) {
+      console.log('yes');
+    }
+  }, [loading, error]);
+
   const renderComment = ({item}) => (
     <Comment
       commentBody={item.commentBody}
@@ -30,7 +48,6 @@ export default function Article({route, navigation}) {
       createDate={item.createDate}
     />
   );
-
   const NewsArticle = () => {
     return (
       <View style={styles.article}>
@@ -61,15 +78,20 @@ export default function Article({route, navigation}) {
   };
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.headerWrappr}>
-      <View style={styles.comments}>
-        <FlatList
-          style={{padding: 20, marginBottom: 5}}
-          data={DATA}
-          renderItem={renderComment}
-          keyExtractor={item => item.commentID}
-          ListHeaderComponent={NewsArticle}
-        />
-      </View>
+      {!loading && (
+        <View style={styles.comments}>
+          <FlatList
+            style={{padding: 15, marginBottom: 5}}
+            data={data?.results?.comments}
+            renderItem={renderComment}
+            keyExtractor={item => item?.commentID}
+            ListHeaderComponent={NewsArticle}
+            ListEmptyComponent={
+              <SmallTitle text={data?.errorDetails} _color={COLORS.black} />
+            }
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 }
