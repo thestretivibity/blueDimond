@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 15,
     backgroundColor: COLORS.white,
-    marginHorizontal: 10,
+
     borderRadius: 10,
   },
   articleView: {

@@ -62,7 +62,7 @@ export default function TopNews({route, navigation}) {
 
 const styles = StyleSheet.create({
   headerWrappr: {
-    padding: 20,
+    padding: 10,
     flex: 1,
     backgroundColor: COLORS.creme,
     alignItems: 'flex-start',

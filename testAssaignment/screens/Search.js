@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -16,20 +16,27 @@ import {COLORS} from '../constants/theme';
 
 export default function Search({route, navigation}) {
   const {query} = route.params;
-
+  const [refrech, setRefrech] = useState(true);
+  const [result, setResult] = useState([]);
+  const [page, setPage] = useState(0);
   const {
     data,
     error,
     loading,
     request: searchArticles,
-  } = useApi(ApiCall.searchArticles, query);
+  } = useApi(ApiCall.searchArticles, query, page);
   useEffect(() => {
-    searchArticles(query);
-  }, []);
+    if (refrech) {
+      searchArticles(query, page);
+      setPage(page + 1);
+    }
+    setRefrech(false);
+  }, [refrech]);
   useEffect(() => {
     if (error) navigation.navigate('Home');
     if (!loading) {
       console.log('yes');
+      setResult([...result, ...data?.response?.docs]);
     }
   }, [loading, error]);
 
@@ -50,12 +57,14 @@ export default function Search({route, navigation}) {
       <BigTitle text={`"${query}"`} />
       <Text style={{color: '#000'}}>Test From Search</Text>
       <View>
-        {!loading && (
+        {(!loading || page > 0) && (
           <FlatList
             style={{marginTop: 20, marginBottom: 10}}
-            data={data?.response?.docs}
+            data={result}
             renderItem={renderResult}
             keyExtractor={item => item.web_url}
+            onEndReached={() => setRefrech(true)}
+            onEndReachedThreshold={0.5}
           />
         )}
       </View>
