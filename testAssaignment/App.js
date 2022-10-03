@@ -7,15 +7,10 @@ import {
   CardStyleInterpolators,
   HeaderStyleInterpolators,
 } from '@react-navigation/stack';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {StyleSheet, StatusBar, Text} from 'react-native';
+import {store, persistor} from './redux/store/store';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 import Home from './screens/Home';
 import LogIn from './screens/LogIn';
 import SignUp from './screens/SignUp';
@@ -24,19 +19,14 @@ import Search from './screens/Search';
 import Article from './screens/Articles';
 const Stack = createStackNavigator();
 const App = () => {
-  // const isDarkMode = useColorScheme() === 'dark';
-  // const backgroundStyle = {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   backgroundColor: '#fff',
-  // };
-
   return (
-    <NavigationContainer theme={{colors: {background: '#fff'}}}>
-      {/* <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} /> */}
-      <StackNavigator />
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <NavigationContainer theme={{colors: {background: '#fff'}}}>
+          <StackNavigator />
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 };
 
@@ -61,6 +51,25 @@ function StackNavigator({navigation}) {
         headerTitleStyle: {color: '#000'},
         headerStyle: {backgroundColor: '#fff', elevation: 5},
       }}>
+      <Stack.Screen
+        name="LogIn"
+        component={LogIn}
+        options={{
+          cardStyleInterpolator:
+            CardStyleInterpolators.forRevealFromBottomAndroid,
+          headerShown: false,
+          animationEnabled: true,
+        }}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          headerShown: false,
+          animationEnabled: true,
+        }}
+      />
       <Stack.Screen
         name="Home"
         component={Home}
@@ -90,16 +99,6 @@ function StackNavigator({navigation}) {
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           headerShown: true,
           headerTitle: 'Top News',
-          animationEnabled: true,
-        }}
-      />
-
-      <Stack.Screen
-        name="LogIn"
-        component={LogIn}
-        options={{
-          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
-          headerShown: false,
           animationEnabled: true,
         }}
       />

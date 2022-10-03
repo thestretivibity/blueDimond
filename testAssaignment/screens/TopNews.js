@@ -1,6 +1,13 @@
 import React, {useEffect} from 'react';
 
-import {View, Text, Image, StyleSheet, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {BigTitle} from '../components/textBase';
 import TopNewsItem from '../components/top_news';
@@ -42,12 +49,21 @@ export default function TopNews({route, navigation}) {
     <SafeAreaView
       edges={['left', 'right', 'bottom']}
       style={styles.headerWrappr}>
-      <BigTitle text={`${category}`.toUpperCase()} />
-      <Text style={{color: '#000'}}>Test From TopNews</Text>
-      <View>
-        {!loading && (
+      <View style={styles.title}>
+        <BigTitle text={`${category}`.toUpperCase()} />
+        <Text style={{color: '#000'}}>Test From TopNews</Text>
+      </View>
+      <View
+        style={{
+          alignSelf: 'stretch',
+          justifyContent: 'center',
+          paddingBottom: 15,
+        }}>
+        {loading ? (
+          <ActivityIndicator size="large" color={COLORS.black} />
+        ) : (
           <FlatList
-            style={{marginTop: 20, marginBottom: 10}}
+            style={{marginTop: 20, marginBottom: 10, paddingBottom: 5}}
             data={data?.results?.filter(
               c => c?.multimedia && c?.section.length > 0,
             )}
@@ -62,9 +78,13 @@ export default function TopNews({route, navigation}) {
 
 const styles = StyleSheet.create({
   headerWrappr: {
-    padding: 10,
+    padding: 20,
     flex: 1,
     backgroundColor: COLORS.creme,
+    alignItems: 'center',
+  },
+  title: {
     alignItems: 'flex-start',
+    alignSelf: 'flex-start',
   },
 });

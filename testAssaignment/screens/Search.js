@@ -6,6 +6,7 @@ import {
   StyleSheet,
   FlatList,
   AsyncStorage,
+  ActivityIndicator,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {BigTitle} from '../components/textBase';
@@ -54,8 +55,10 @@ export default function Search({route, navigation}) {
   );
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.headerWrappr}>
-      <BigTitle text={`"${query}"`} />
-      <Text style={{color: '#000'}}>Test From Search</Text>
+      <View style={styles.title}>
+        <BigTitle text={`"${query}"`} />
+        <Text style={{color: '#000'}}>Test From Search</Text>
+      </View>
       <View>
         {(!loading || page > 0) && (
           <FlatList
@@ -65,6 +68,10 @@ export default function Search({route, navigation}) {
             keyExtractor={item => item.web_url}
             onEndReached={() => setRefrech(true)}
             onEndReachedThreshold={0.5}
+            bounces={true}
+            ListFooterComponent={
+              loading && <ActivityIndicator size="large" color={COLORS.black} />
+            }
           />
         )}
       </View>
@@ -77,6 +84,10 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1,
     backgroundColor: COLORS.creme,
+    alignItems: 'center',
+  },
+  title: {
     alignItems: 'flex-start',
+    alignSelf: 'flex-start',
   },
 });

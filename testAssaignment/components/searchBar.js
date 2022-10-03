@@ -12,11 +12,17 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLORS, SIZES} from '../constants/theme';
 
+//REDUX STUFF TO MAKE SURE THAT WE'VE REGESTRED THE ENTRED QUERY
+import {useSelector, useDispatch} from 'react-redux';
+import {addQuery} from '../redux/actions/searchAction';
+import {UnderTitle} from './textBase';
+
 const SearchBar = ({navigation}) => {
   const [isSearching, setIsSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const inputRef = useRef(null);
-  const [storedQueries, setStoredQueries] = useState('');
+  const queryList = useSelector(state => state.queries);
+  const dispatchQuery = useDispatch();
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -33,6 +39,17 @@ const SearchBar = ({navigation}) => {
     };
   }, []);
 
+  // WHEN THE SEARCH BUTTON OR ONE OF THE HISTORY SEARCHES IS CLICKED
+  const HandleSearch = element => {
+    if ((searchQuery.length > 0) | (element?.length > 0)) {
+      navigation.navigate('Search', {query: element || searchQuery});
+      dispatchQuery(addQuery(searchQuery));
+      inputRef.current;
+    }
+  };
+  //GETTING THE SEARCH HISTORY
+  const getQueriesHistory = list => {};
+
   return (
     <SafeAreaView>
       <View style={[styles.mainView]}>
@@ -41,17 +58,12 @@ const SearchBar = ({navigation}) => {
           style={{flex: 1}}
           fontSize={SIZES.underTitle}
           onChangeText={text => setSearchQuery(text)}
-          onSubmitEditing={() =>
-            searchQuery.length > 0 &&
-            navigation.navigate('Search', {query: searchQuery})
-          }
+          onSubmitEditing={() => HandleSearch()}
           placeholder={'Search for articles...'}></TextInput>
+
         <TouchableOpacity
           style={styles.searchButton}
-          onPress={() =>
-            searchQuery.length > 0 &&
-            navigation.navigate('Search', {query: searchQuery})
-          }>
+          onPress={() => HandleSearch()}>
           <Image
             style={{width: 30, height: 30}}
             source={require('../assets/images/search.png')}
@@ -60,11 +72,18 @@ const SearchBar = ({navigation}) => {
       </View>
       {isSearching && (
         <View style={{marginBottom: 2000}}>
-          {/* Alert: here will go the previous searched query(last 5) */}
-          {/* suggestion to make asynch storage with key being the user name + searchHistory */}
-          <View style={{}}>
-            <Text style={{color: '#000'}}>{storedQueries}</Text>
-          </View>
+          {/* DISPLAYING THE HISTORY OF LAST 5 SERCHED QUERIES */}
+          {[...new Set(queryList.map(e => e.query))]
+            .slice(0, 5)
+            .map((element, index) => {
+              return (
+                <View key={index} style={{margin: 10}}>
+                  <TouchableOpacity onPress={() => HandleSearch(element)}>
+                    <UnderTitle text={element} />
+                  </TouchableOpacity>
+                </View>
+              );
+            })}
         </View>
       )}
     </SafeAreaView>

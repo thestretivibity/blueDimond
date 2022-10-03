@@ -92,7 +92,10 @@ export default function Article({route, navigation}) {
             //   onEndReached={()=> }
             ListHeaderComponent={NewsArticle}
             ListEmptyComponent={
-              <SmallTitle text={data?.errorDetails} _color={COLORS.black} />
+              <SmallTitle
+                text={data?.errorDetails || 'This article has no comment!'}
+                _color={COLORS.black}
+              />
             }
           />
         )}

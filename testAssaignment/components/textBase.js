@@ -15,8 +15,8 @@ export const UnderTitle = props => {
 export const ContentText = props => {
   return <Text style={styles.contentText}>{props.text}</Text>;
 };
-export const Title = props => {
-  return <Text style={styles.title}>{props.text}</Text>;
+export const Title = ({text, _color = COLORS.black}) => {
+  return <Text style={[styles.title, {color: _color}]}>{text}</Text>;
 };
 
 export const SmallTitle = ({text, _color = COLORS.secondary}) => {

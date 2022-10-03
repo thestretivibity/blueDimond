@@ -6,7 +6,7 @@ const searchArticles = (query, page) =>
       query +
       '&page=' +
       page +
-      '&api-key=NVsCqBUzlU4WJRBYiCisq3FTjhcmciZ4&fq=source%3A(%22The%20New%20York%20Times%22)',
+      '&api-key=NVsCqBUzlU4WJRBYiCisq3FTjhcmciZ4&fq=source%3A(%22The%20New%20York%20Times%22)&begin_date=20150101',
   );
 
 const getComments = url =>
