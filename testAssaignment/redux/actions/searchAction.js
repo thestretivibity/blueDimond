@@ -1,5 +1,7 @@
 export const ADD_QUERY = 'ADD_QUERY';
 
+export const CLEAR_QUERIES = 'CLEAR_QUERIES';
+
 let queryId = 0;
 
 export const addQuery = query => ({
@@ -8,4 +10,9 @@ export const addQuery = query => ({
     id: ++queryId,
     query,
   },
+});
+
+export const clearQueries = () => ({
+  type: CLEAR_QUERIES,
+  payload: {},
 });

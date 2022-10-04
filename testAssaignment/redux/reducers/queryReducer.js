@@ -1,4 +1,4 @@
-import {ADD_QUERY} from '../actions/searchAction';
+import {ADD_QUERY, CLEAR_QUERIES} from '../actions/searchAction';
 
 const initialState = {
   queries: [],
@@ -11,6 +11,12 @@ const queryReducer = (state = initialState, action) => {
       return {
         ...state,
         queries: [{id, query}, ...state.queries],
+      };
+    }
+    case CLEAR_QUERIES: {
+      return {
+        ...state,
+        queries: [],
       };
     }
     default:

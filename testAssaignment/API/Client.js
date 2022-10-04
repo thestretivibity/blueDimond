@@ -1,13 +1,14 @@
 import {create} from 'axios';
+import {BASE_URL, PUBLIC_BASE_URL} from '@env';
 
 const apiClient = create({
-  baseURL: 'https://api.nytimes.com/svc/',
+  baseURL: BASE_URL,
   // headers: {
   //   Authorization: "Bearer " + { token },
   // },
 });
 const apiClientPUBLIC = create({
-  baseURL: 'https://www.nytimes.com/svc/',
+  baseURL: PUBLIC_BASE_URL,
   // headers: {
   //   Authorization: "Bearer " + { token },
   // },

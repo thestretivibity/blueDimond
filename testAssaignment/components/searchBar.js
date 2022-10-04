@@ -3,7 +3,6 @@ import {
   View,
   TextInput,
   StyleSheet,
-  Text,
   TouchableOpacity,
   Image,
   Keyboard,
@@ -14,8 +13,8 @@ import {COLORS, SIZES} from '../constants/theme';
 
 //REDUX STUFF TO MAKE SURE THAT WE'VE REGESTRED THE ENTRED QUERY
 import {useSelector, useDispatch} from 'react-redux';
-import {addQuery} from '../redux/actions/searchAction';
-import {UnderTitle} from './textBase';
+import {addQuery, clearQueries} from '../redux/actions/searchAction';
+import {SmallTitle, UnderTitle} from './textBase';
 
 const SearchBar = ({navigation}) => {
   const [isSearching, setIsSearching] = useState(false);
@@ -42,13 +41,10 @@ const SearchBar = ({navigation}) => {
   // WHEN THE SEARCH BUTTON OR ONE OF THE HISTORY SEARCHES IS CLICKED
   const HandleSearch = element => {
     if ((searchQuery.length > 0) | (element?.length > 0)) {
+      dispatchQuery(addQuery(element || searchQuery));
       navigation.navigate('Search', {query: element || searchQuery});
-      dispatchQuery(addQuery(searchQuery));
-      inputRef.current;
     }
   };
-  //GETTING THE SEARCH HISTORY
-  const getQueriesHistory = list => {};
 
   return (
     <SafeAreaView>
@@ -71,19 +67,29 @@ const SearchBar = ({navigation}) => {
         </TouchableOpacity>
       </View>
       {isSearching && (
+        // GOOD OLD TRICK FROM SALAH :_)
         <View style={{marginBottom: 2000}}>
           {/* DISPLAYING THE HISTORY OF LAST 5 SERCHED QUERIES */}
           {[...new Set(queryList.map(e => e.query))]
             .slice(0, 5)
             .map((element, index) => {
               return (
-                <View key={index} style={{margin: 10}}>
-                  <TouchableOpacity onPress={() => HandleSearch(element)}>
-                    <UnderTitle text={element} />
-                  </TouchableOpacity>
-                </View>
+                <TouchableOpacity
+                  style={styles.searchHistory}
+                  key={index}
+                  onPress={() => HandleSearch(element)}>
+                  <UnderTitle text={element} />
+                </TouchableOpacity>
               );
             })}
+          {/* CLEAR SEARCH HISTORY */}
+          {queryList.length > 0 && (
+            <TouchableOpacity
+              onPress={() => dispatchQuery(clearQueries())}
+              style={styles.searchHistory}>
+              <SmallTitle text={'Clear History'} _color={COLORS.primary} />
+            </TouchableOpacity>
+          )}
         </View>
       )}
     </SafeAreaView>
@@ -116,6 +122,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  searchHistory: {
+    padding: 10,
   },
 });
 export default SearchBar;

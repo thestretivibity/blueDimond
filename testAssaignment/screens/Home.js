@@ -19,7 +19,7 @@ export default function Home({navigation}) {
       {/* search bar  */}
       <SearchBar navigation={navigation}></SearchBar>
       <View>
-        <BigTitle text={'Welcome Aboard Salah'} />
+        <BigTitle text={'Welcome aboard Salah'} />
         <ContentText text={'Please choose a category to continue'} />
       </View>
       <KeyboardAvoidingView
@@ -29,6 +29,7 @@ export default function Home({navigation}) {
         {/* science category */}
         {/* world */}
         <TouchableOpacity
+          activeOpacity={0.8}
           style={styles.category}
           onPress={() => navigation.navigate('TopNews', {category: 'world'})}>
           <ImageBackground
@@ -39,6 +40,7 @@ export default function Home({navigation}) {
         </TouchableOpacity>
         {/* sience */}
         <TouchableOpacity
+          activeOpacity={0.8}
           style={styles.category}
           onPress={() => navigation.navigate('TopNews', {category: 'science'})}>
           <ImageBackground

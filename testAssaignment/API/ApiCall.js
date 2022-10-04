@@ -2,6 +2,7 @@ import clientApi from './Client';
 
 const searchArticles = (query, page) =>
   clientApi.apiClient(
+    /* A query string. */
     'search/v2/articlesearch.json?q=' +
       query +
       '&page=' +
@@ -13,7 +14,6 @@ const getComments = url =>
   clientApi.apiClientPUBLIC(
     'community/V3/requestHandler?cmd=GetCommentsAll&url=' + url,
   );
-
 const getArticles = category =>
   clientApi.apiClient(
     `topstories/v2/${category}.json?api-key=NVsCqBUzlU4WJRBYiCisq3FTjhcmciZ4`,
