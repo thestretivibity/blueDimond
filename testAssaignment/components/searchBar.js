@@ -20,7 +20,7 @@ const SearchBar = ({navigation}) => {
   const [isSearching, setIsSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const inputRef = useRef(null);
-  const queryList = useSelector(state => state.queries);
+  const queryList = useSelector(state => state.Queries.queries);
   const dispatchQuery = useDispatch();
 
   useEffect(() => {

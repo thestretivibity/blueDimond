@@ -9,14 +9,16 @@ import {createStore, applyMiddleware} from 'redux';
 
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import queryReducer from '../reducers/queryReducer';
+// import queryReducer from '../reducers/queryReducer';
+// import authenticationReducer from '../reducers/authenticationReducer';
+import rootReducer from '../reducers';
 const persistConfig = {
   key: 'root',
   //blacklist: ['acticlesReducers'],
   storage: AsyncStorage,
 };
 
-const persistedReducer = persistReducer(persistConfig, queryReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 //
 

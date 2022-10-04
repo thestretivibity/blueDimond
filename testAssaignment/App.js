@@ -17,6 +17,7 @@ import SignUp from './screens/SignUp';
 import TopNews from './screens/TopNews';
 import Search from './screens/Search';
 import Article from './screens/Articles';
+import Router from './screens/Router';
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -51,6 +52,16 @@ function StackNavigator({navigation}) {
         headerTitleStyle: {color: '#000'},
         headerStyle: {backgroundColor: '#fff', elevation: 5},
       }}>
+      <Stack.Screen
+        name="Router"
+        component={Router}
+        options={{
+          cardStyleInterpolator:
+            CardStyleInterpolators.forRevealFromBottomAndroid,
+          headerShown: false,
+          animationEnabled: true,
+        }}
+      />
       <Stack.Screen
         name="LogIn"
         component={LogIn}
