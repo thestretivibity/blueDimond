@@ -36,7 +36,6 @@ export default function LogIn({navigation}) {
     email: username,
     password: password,
   });
-  useEffect(() => {}, []);
   useEffect(() => {
     if (error) {
       return;

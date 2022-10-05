@@ -13,10 +13,13 @@ const getArticles = category =>
 
 const logIn = data =>
   clientApi.apiClientToken.post('login', qs.stringify(data, {encode: true}));
+const signUp = data =>
+  clientApi.apiClientToken.post('register', qs.stringify(data, {encode: true}));
 
 export default {
   searchArticles,
   getComments,
   getArticles,
   logIn,
+  signUp,
 };

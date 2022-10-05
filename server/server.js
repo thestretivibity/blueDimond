@@ -102,7 +102,8 @@ server.post("/auth/register", (req, res) => {
   // Create token for new user
   const access_token = createToken({ email });
   console.log("Access Token:" + access_token);
-  res.status(200).json({ access_token });
+  const refresh_token = creatRefreshToken({ email });
+  res.status(200).json({ access_token, expiresIn, refresh_token });
 });
 
 // Login to one of the users from ./users.json

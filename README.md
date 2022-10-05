@@ -2,6 +2,7 @@
 
 # Demo
 
+[Demo Video](https://www.youtube.com/watch?v=q7EOaM4SlJw)
 This is a basic React Native app that hits the NYT APIs via a local server, featuring redux state management, search for articles with infinite scroll pagination, token authentication with refresh and more!
 
 ## Requirements
@@ -16,7 +17,6 @@ Node 13 or greater is required. Development for iOS requires a Mac and Xcode 10 
 1. Clone this repository
 2. Open Terminal/CMD and cd server
 3. type `npm install`
-   done!
 
 ## Client
 
@@ -29,6 +29,7 @@ Node 13 or greater is required. Development for iOS requires a Mac and Xcode 10 
 # Running the application
 
 ==Very important==
+
 Before starting, make sure to edit the .env file in `testAssaignment` and add your machine IP4 address instead.
 
 - [axios-in-react-native-not-calling-server-in-localhost](https://stackoverflow.com/questions/42189301/axios-in-react-native-not-calling-server-in-localhost)
@@ -39,7 +40,12 @@ Go to second Terminal window and type `npm start`
 
 DONE!
 
+## Testing
+
+hit `npm test -- --coverage`
+
 ### Some limitations
 
-This app was build for the purpose of demonstration and may contain some bugs, feel free to reporst them.
-I'm using a free Key from NYT so there's a quota per day and it might affect the fast infinite scroll.
+- This app was build for the purpose of demonstration and may contain some bugs, feel free to reporst them.
+- I'm using a free Key from NYT so there's a quota per day and it might affect the fast infinite scroll.
+- The Server needs a listerner to registred changes, so a SignUp data save needs a server reboot!
