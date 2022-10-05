@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   View,
@@ -11,8 +11,52 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SmallTitle, Title} from '../components/textBase';
 import {COLORS} from '../constants/theme';
+import ApiCall from '../API/ApiCall';
+import useApi from '../hooks/ApiUsage';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  saveToken,
+  signIn,
+  signOut,
+} from '../redux/actions/authenticationAction';
 
 export default function LogIn({navigation}) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [submit, setSubmit] = useState(false);
+  const [DATA, setDATA] = useState([]);
+  const dispatch = useDispatch();
+
+  const {
+    data,
+    error,
+    loading,
+    request: logIn,
+  } = useApi(ApiCall.logIn, {
+    email: username,
+    password: password,
+  });
+  useEffect(() => {}, []);
+  useEffect(() => {
+    if (error) {
+      return;
+    }
+    if (!loading) {
+      console.log('yes');
+      console.log(data);
+      dispatch(saveToken(data?.access_token, data?.expiresIn));
+      dispatch(signIn());
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'Home',
+            params: {someParam: ''},
+          },
+        ],
+      });
+    }
+  }, [loading, error]);
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.headerWrappr}>
       <Image
@@ -32,6 +76,7 @@ export default function LogIn({navigation}) {
             textContentType="emailAddress"
             keyboardType="email-address"
             placeholder="Type your email adress"
+            onChangeText={text => setUsername(text)}
           />
         </View>
         {/* password */}
@@ -41,8 +86,7 @@ export default function LogIn({navigation}) {
             style={styles.inputText}
             label="Password"
             returnKeyType="done"
-            // value={password.value}
-            //  onChangeText={text => setPassword({ value: text, error: '' })}
+            onChangeText={text => setPassword(text)}
             placeholder="Type your password"
             secureTextEntry
           />
@@ -51,7 +95,12 @@ export default function LogIn({navigation}) {
           <TouchableOpacity
             style={styles.login}
             activeOpacity={0.9}
-            onPress={() => navigation.navigate('Home')}>
+            onPress={() =>
+              logIn({
+                email: username,
+                password: password,
+              })
+            }>
             <Title text={'Log In'} _color={COLORS.white} />
           </TouchableOpacity>
           {/* signUP */}

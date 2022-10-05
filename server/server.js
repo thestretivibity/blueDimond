@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const server = jsonServer.create();
 const router = jsonServer.router("./database.json");
 const userdb = JSON.parse(fs.readFileSync("./users.json", "UTF-8"));
+const cors = require("cors");
 
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
@@ -110,7 +111,7 @@ server.use(/^(?!\/auth).*$/, (req, res, next) => {
     req.headers.authorization === undefined ||
     req.headers.authorization.split(" ")[0] !== "Bearer"
   ) {
-    const status = 401;
+    const status = 403;
     const message = "Error in authorization format";
     res.status(status).json({ status, message });
     return;
@@ -120,14 +121,14 @@ server.use(/^(?!\/auth).*$/, (req, res, next) => {
     verifyTokenResult = verifyToken(req.headers.authorization.split(" ")[1]);
 
     if (verifyTokenResult instanceof Error) {
-      const status = 401;
+      const status = 403;
       const message = "Access token not provided";
       res.status(status).json({ status, message });
       return;
     }
     next();
   } catch (err) {
-    const status = 401;
+    const status = 403;
     const message = "Error access_token is revoked";
     res.status(status).json({ status, message });
   }
@@ -139,8 +140,8 @@ server.get("/nyt/getArticles", (req, res) => {
   const _ = (async () => {
     try {
       const response = await apiConsume.getArticles(category);
-      console.log(response.data);
-      res.status(200).json(response.data);
+      console.log(category);
+      res.json(response.data);
       return;
     } catch (error) {
       console.log(error);
@@ -156,7 +157,7 @@ server.get("/nyt/searchArticles", (req, res) => {
   const _ = (async () => {
     try {
       const response = await apiConsume.searchArticles(query, page);
-      console.log(response.data);
+      console.log({ query, page });
       res.status(200).json(response.data);
       return;
     } catch (error) {
@@ -182,6 +183,7 @@ server.get("/nyt/getComments", (req, res) => {
 });
 
 server.use(router);
+server.use(cors);
 
 server.listen(8000, () => {
   console.log("Run Auth API Server");

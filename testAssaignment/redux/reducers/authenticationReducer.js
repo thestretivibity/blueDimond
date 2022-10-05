@@ -22,14 +22,16 @@ const authenticationReducer = (state = initialState, action) => {
       const {isSignedOut} = action.payload;
       return {
         ...state,
-        authentication: [{isSignedOut}, ...state.authentication.slice(-1)],
+        authentication: [
+          {isSignedOut: false},
+          ...state.authentication.slice(-1),
+        ],
       };
     }
     case SIGN_OUT: {
       const {isSignedOut} = action.payload;
       return {
-        ...state,
-        authentication: [{isSignedOut}, ...state.authentication.slice(-1)],
+        authentication: [{isSignedOut: true}],
       };
     }
     case GET_TOKEN: {

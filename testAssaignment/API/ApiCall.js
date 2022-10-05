@@ -1,26 +1,22 @@
 import clientApi from './Client';
-
+import qs from 'qs';
 const searchArticles = (query, page) =>
   clientApi.apiClient(
     /* A query string. */
-    'search/v2/articlesearch.json?q=' +
-      query +
-      '&page=' +
-      page +
-      '&api-key=NVsCqBUzlU4WJRBYiCisq3FTjhcmciZ4&fq=source%3A(%22The%20New%20York%20Times%22)&begin_date=20150101',
+    `searchArticles?query=${query}&page=${page}`,
   );
 
 const getComments = url =>
-  clientApi.apiClientPUBLIC(
-    'community/V3/requestHandler?cmd=GetCommentsAll&url=' + url,
-  );
+  clientApi.apiClient(`getComments?url=${escape(url)}`);
 const getArticles = category =>
-  clientApi.apiClient(
-    `topstories/v2/${category}.json?api-key=NVsCqBUzlU4WJRBYiCisq3FTjhcmciZ4`,
-  );
+  clientApi.apiClient(`getArticles?category=${category}`);
+
+const logIn = data =>
+  clientApi.apiClientToken.post('login', qs.stringify(data, {encode: true}));
 
 export default {
   searchArticles,
   getComments,
   getArticles,
+  logIn,
 };

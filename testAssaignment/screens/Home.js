@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -10,22 +10,35 @@ import {
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SearchBar from '../components/searchBar';
-import {BigTitle, ContentText} from '../components/textBase';
+import {BigTitle, ContentText, Title} from '../components/textBase';
 import {COLORS} from '../constants/theme';
+import {useDispatch} from 'react-redux';
+import {signOut} from '../redux/actions/authenticationAction';
+import Router from './Router';
+import {StackActions} from '@react-navigation/native';
 
 export default function Home({navigation}) {
+  const dispatch = useDispatch();
+  const [logOut, setLogOut] = useState(false);
+
+  useEffect(() => {
+    if (logOut) {
+      //navigation.dispatch(StackActions.replace('LogIn'));
+      dispatch(signOut());
+    }
+  }, [logOut]);
+
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.headerWrappr}>
       {/* search bar  */}
       <SearchBar navigation={navigation}></SearchBar>
-      <View>
-        <BigTitle text={'Welcome aboard Salah'} />
-        <ContentText text={'Please choose a category to continue'} />
-      </View>
       <KeyboardAvoidingView
         behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-        enabled={false}
         style={styles.categoryContainer}>
+        <View>
+          <BigTitle text={'Welcome aboard!'} />
+          <ContentText text={'Please choose a category to continue'} />
+        </View>
         {/* science category */}
         {/* world */}
         <TouchableOpacity
@@ -50,6 +63,9 @@ export default function Home({navigation}) {
           </ImageBackground>
         </TouchableOpacity>
       </KeyboardAvoidingView>
+      <TouchableOpacity hitSlop={50} onPress={() => setLogOut(true)}>
+        <Title text={'Sign out'} />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

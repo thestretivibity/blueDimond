@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {cloneElement} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {
@@ -20,6 +20,7 @@ import Article from './screens/Articles';
 import Router from './screens/Router';
 const Stack = createStackNavigator();
 const App = () => {
+  console.log(store.getState()?.Authentications);
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>

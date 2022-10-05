@@ -36,7 +36,7 @@ const SearchBar = ({navigation}) => {
       showSubscription.remove();
       hideSubscription.remove();
     };
-  }, []);
+  }, [isSearching]);
 
   // WHEN THE SEARCH BUTTON OR ONE OF THE HISTORY SEARCHES IS CLICKED
   const HandleSearch = element => {
@@ -68,7 +68,7 @@ const SearchBar = ({navigation}) => {
       </View>
       {isSearching && (
         // GOOD OLD TRICK FROM SALAH :_)
-        <View style={{marginBottom: 2000}}>
+        <View style={{height: '100%', paddingBottom: 1000}}>
           {/* DISPLAYING THE HISTORY OF LAST 5 SERCHED QUERIES */}
           {[...new Set(queryList.map(e => e.query))]
             .slice(0, 5)

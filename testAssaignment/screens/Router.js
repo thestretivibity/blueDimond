@@ -13,19 +13,20 @@ import {
 export default function Router({navigation}) {
   const dispatch = useDispatch();
   const authentication = useSelector(
-    state => state.Athentications?.authentication,
+    state => state?.Authentications?.authentication,
   );
   const [isLoading, setIsLoading] = useState(true);
-  const [isSignedOut, setIsSignedOut] = useState(true);
+  const [isSignedOut, setIsSignedOut] = useState('');
   const handleInitialRouting = () => {
-    if (authentication) {
+    //console.log(authentication);
+    if (!authentication[0]?.isSignedOut) {
       setIsSignedOut(authentication[0]?.isSignedOut);
-      console.log(isSignedOut);
+      navigation.dispatch(StackActions.replace('Home'));
+      return;
     }
-    if (isSignedOut) {
-      navigation.dispatch(StackActions.replace('LogIn'));
-    }
+
     setIsLoading(false);
+    navigation.dispatch(StackActions.replace('LogIn'));
   };
   useEffect(() => {
     if (isLoading) {
