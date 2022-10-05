@@ -25,6 +25,15 @@ export default function Home({navigation}) {
     if (logOut) {
       //navigation.dispatch(StackActions.replace('LogIn'));
       dispatch(signOut());
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'LogIn',
+            params: {someParam: ''},
+          },
+        ],
+      });
     }
   }, [logOut]);
 

@@ -12,10 +12,10 @@ const initialState = {
 const authenticationReducer = (state = initialState, action) => {
   switch (action.type) {
     case SAVE_TOKEN: {
-      const {jwtToken, expiry_Date} = action.payload;
+      const {jwtToken, expiry_Date, refresh_token} = action.payload;
       return {
         ...state,
-        authentication: [{jwtToken, expiry_Date}],
+        authentication: [{jwtToken, expiry_Date, refresh_token}],
       };
     }
     case SIGN_IN: {

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {BASE_URL, AUTH_BASE_URL} from '@env';
 import {store} from '../redux/store/store';
+import {saveToken} from '../redux/actions/authenticationAction';
 
 const apiClient = axios.create({
   baseURL: BASE_URL,
@@ -28,19 +29,29 @@ apiClient.interceptors.request.use(
     return Promise.reject(error);
   },
 );
+const refreshToken = (refresh_token, email) =>
+  apiClientToken(`/refresh?refresh_token=${refresh_token}&email=${email}`);
+
 // HANDLING THE TOKEN REFRESHING IF THE MAIN TOKEN IS EXPIRED
 apiClient.interceptors.response.use(
   response => {
     return response;
   },
-  error => {
+  async error => {
     if (error.response.status == 403) {
-      console.log('hello');
-      return;
+      const res = await refreshToken(
+        ...[store.getState().Authentications?.authentication[1]?.refresh_token],
+        'salakh@email.com',
+      );
+      store.dispatch(
+        saveToken(res.data.access_token, ' ', res.data.refresh_token),
+      );
+      console.log(store.getState());
     }
     console.warn('network error');
   },
 );
+
 export default {
   apiClient,
   apiClientPUBLIC,

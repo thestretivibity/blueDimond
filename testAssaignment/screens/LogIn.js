@@ -44,7 +44,9 @@ export default function LogIn({navigation}) {
     if (!loading) {
       console.log('yes');
       console.log(data);
-      dispatch(saveToken(data?.access_token, data?.expiresIn));
+      dispatch(
+        saveToken(data?.access_token, data?.expiresIn, data?.refresh_token),
+      );
       dispatch(signIn());
       navigation.reset({
         index: 0,

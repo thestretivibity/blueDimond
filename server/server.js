@@ -17,7 +17,11 @@ server.use(jsonServer.defaults());
 
 const SECRET_KEY = "123456789";
 
-const expiresIn = "50m";
+const expiresIn = "100h";
+
+function creatRefreshToken(payload) {
+  return jwt.sign(payload, SECRET_KEY, { expiresIn: "60000s" });
+}
 
 // Create a token from a payload
 function createToken(payload) {
@@ -31,6 +35,17 @@ function verifyToken(token) {
   );
 }
 
+// Verify the refresh token
+
+function verifyRefresh(token, email) {
+  try {
+    const decoded = jwt.verify(token, SECRET_KEY);
+    return decoded.email === email;
+  } catch (error) {
+    // console.error(error);
+    return false;
+  }
+}
 // Check if the user exists in database
 function isAuthenticated({ email, password }) {
   return (
@@ -85,7 +100,7 @@ server.post("/auth/register", (req, res) => {
   });
 
   // Create token for new user
-  const access_token = createToken({ email, password });
+  const access_token = createToken({ email });
   console.log("Access Token:" + access_token);
   res.status(200).json({ access_token });
 });
@@ -101,9 +116,24 @@ server.post("/auth/login", (req, res) => {
     res.status(status).json({ status, message });
     return;
   }
-  const access_token = createToken({ email, password });
+  const access_token = createToken({ email });
+  const refresh_token = creatRefreshToken({ email });
+
   console.log("Access Token:" + access_token);
-  res.status(200).json({ access_token, expiresIn });
+  res.status(200).json({ access_token, expiresIn, refresh_token });
+});
+
+// this to get to get a token by the refresh token
+server.get("/auth/refresh", (req, res) => {
+  const r = req.query.refresh_token;
+  const e = req.query.email;
+  if (verifyRefresh(r, e)) {
+    const access_token = createToken({ e });
+    res.status(200).json({ access_token, refresh_token: r });
+    return;
+  }
+  res.status(400).json({ erro: "revoked" });
+  return;
 });
 
 server.use(/^(?!\/auth).*$/, (req, res, next) => {
