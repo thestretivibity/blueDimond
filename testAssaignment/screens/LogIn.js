@@ -45,7 +45,12 @@ export default function LogIn({navigation}) {
       console.log('yes');
       console.log(data);
       dispatch(
-        saveToken(data?.access_token, data?.expiresIn, data?.refresh_token),
+        saveToken(
+          data?.access_token,
+          data?.expiresIn,
+          data?.refresh_token,
+          username,
+        ),
       );
       dispatch(signIn());
       navigation.reset({

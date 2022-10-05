@@ -6,16 +6,16 @@ import {
 } from '../actions/authenticationAction';
 
 const initialState = {
-  authentication: [{}, {}],
+  authentication: [],
 };
 
 const authenticationReducer = (state = initialState, action) => {
   switch (action.type) {
     case SAVE_TOKEN: {
-      const {jwtToken, expiry_Date, refresh_token} = action.payload;
+      const {jwtToken, expiry_Date, refresh_token, email} = action.payload;
       return {
         ...state,
-        authentication: [{jwtToken, expiry_Date, refresh_token}],
+        authentication: [{jwtToken, expiry_Date, refresh_token, email}],
       };
     }
     case SIGN_IN: {

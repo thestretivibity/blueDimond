@@ -40,8 +40,8 @@ apiClient.interceptors.response.use(
   async error => {
     if (error.response.status == 403) {
       const res = await refreshToken(
-        ...[store.getState().Authentications?.authentication[1]?.refresh_token],
-        'salakh@email.com',
+        store.getState().Authentications?.authentication[1]?.refresh_token,
+        store.getState().Authentications?.authentication[1]?.email,
       );
       store.dispatch(
         saveToken(res.data.access_token, ' ', res.data.refresh_token),
