@@ -21,7 +21,7 @@ Node 13 or greater is required. Development for iOS requires a Mac and Xcode 10 
 
 ## Client
 
-1. Cd testAssaignment
+1. `cd testAssaignment`
 2. Type `npm install`
 3. Start metro `npx react-native start`
 4. - for Android type `npx react-native run-android`
