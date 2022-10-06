@@ -3,6 +3,7 @@
 # Demo
 
 [Demo Video](https://www.youtube.com/watch?v=q7EOaM4SlJw)
+
 This is a basic React Native app that hits the NYT APIs via a local server, featuring redux state management, search for articles with infinite scroll pagination, token authentication with refresh and more!
 
 ## Requirements
@@ -16,13 +17,13 @@ Node 13 or greater is required. Development for iOS requires a Mac and Xcode 10 
 
 1. Clone this repository
 2. Open Terminal/CMD and cd server
-3. type `npm install`
+3. Type `npm install`
 
 ## Client
 
-1. cd testAssaignment
-2. type `npm install`
-3. start metro `npx react-native start`
+1. `cd testAssaignment`
+2. Type `npm install`
+3. Start metro `npx react-native start`
 4. - for Android type `npx react-native run-android`
    - for iOS `cd ios` then `pod install`
 
@@ -45,7 +46,7 @@ DONE!
 
 ### Testing
 
-hit `npm test -- --coverage`
+Tit `npm test -- --coverage`
 
 ### Some limitations
 
