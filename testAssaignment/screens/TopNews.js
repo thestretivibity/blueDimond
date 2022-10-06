@@ -28,7 +28,6 @@ export default function TopNews({route, navigation}) {
   useEffect(() => {
     if (error) navigation.navigate('Home');
     if (!loading) {
-      console.log('yes');
     }
   }, [loading, error]);
 

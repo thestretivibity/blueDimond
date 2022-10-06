@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {BASE_URL, AUTH_BASE_URL} from '@env';
 import {store} from '../redux/store/store';
-import {saveToken} from '../redux/actions/authenticationAction';
+import {_refreshToken} from '../redux/actions/authenticationAction';
 
 const apiClient = axios.create({
   baseURL: BASE_URL,
@@ -29,8 +29,12 @@ apiClient.interceptors.request.use(
     return Promise.reject(error);
   },
 );
-const refreshToken = (refresh_token, email) =>
-  apiClientToken(`/refresh?refresh_token=${refresh_token}&email=${email}`);
+const refreshTheToken = () =>
+  apiClientToken(
+    `/refresh?refresh_token=${
+      store.getState().Authentications?.authentication[1]?.refresh_token
+    }&email=${store.getState().Authentications?.authentication[1]?.email}`,
+  );
 
 // HANDLING THE TOKEN REFRESHING IF THE MAIN TOKEN IS EXPIRED
 apiClient.interceptors.response.use(
@@ -39,16 +43,15 @@ apiClient.interceptors.response.use(
   },
   async error => {
     if (error.response.status == 403) {
-      const res = await refreshToken(
-        store.getState().Authentications?.authentication[1]?.refresh_token,
-        store.getState().Authentications?.authentication[1]?.email,
-      );
-      store.dispatch(
-        saveToken(res.data.access_token, ' ', res.data.refresh_token),
-      );
-      console.log(store.getState());
+      store.dispatch(_refreshToken());
+
+      console.log(store.getState().Authentications?.authentication[1]);
+
+      return Promise.resolve(error);
+    } else {
+      console.warn('network error');
+      return Promise.resolve(error);
     }
-    console.warn('network error');
   },
 );
 
@@ -56,4 +59,5 @@ export default {
   apiClient,
   apiClientPUBLIC,
   apiClientToken,
+  refreshTheToken,
 };

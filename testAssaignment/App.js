@@ -20,7 +20,6 @@ import Article from './screens/Articles';
 import Router from './screens/Router';
 const Stack = createStackNavigator();
 const App = () => {
-  console.log(store.getState()?.Authentications);
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>

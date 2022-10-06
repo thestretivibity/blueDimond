@@ -28,19 +28,22 @@ Node 13 or greater is required. Development for iOS requires a Mac and Xcode 10 
 
 # Running the application
 
-==Very important==
+== Very important ==
 
 Before starting, make sure to edit the .env file in `testAssaignment` and add your machine IP4 address instead.
 
 - [axios-in-react-native-not-calling-server-in-localhost](https://stackoverflow.com/questions/42189301/axios-in-react-native-not-calling-server-in-localhost)
 
-Two Terminal/CMD windows are required to run the application.
-To run the server type `cd server` then `npm run start-auth`
-Go to second Terminal window and type `npm start`
+- Two Terminal/CMD windows are required to run the application.
+- To run the server type `cd server` then `npm run start-auth` -- This will not register the changes untill the rerun of the server!
+  To run the server while saving changes (recommneded)
+  --install `sudo npm install -g --force nodemon`
+  then you can start the server while listening on changes (like user regestration) by running the server through `nodemon server.js`
+- o to second Terminal window and type `npm start`
 
 DONE!
 
-## Testing
+### Testing
 
 hit `npm test -- --coverage`
 
@@ -48,4 +51,4 @@ hit `npm test -- --coverage`
 
 - This app was build for the purpose of demonstration and may contain some bugs, feel free to reporst them.
 - I'm using a free Key from NYT so there's a quota per day and it might affect the fast infinite scroll.
-- The Server needs a listerner to registred changes, so a SignUp data save needs a server reboot!
+- The Server needs a listerner to registred changes, so a SignUp data save needs a server reboot! (solved above).

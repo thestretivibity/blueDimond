@@ -41,8 +41,6 @@ export default function SignUp({navigation}) {
       return;
     }
     if (!loading) {
-      console.log('yes');
-      console.log(data);
       dispatch(
         saveToken(
           data?.access_token,
@@ -107,14 +105,7 @@ export default function SignUp({navigation}) {
                 password: password,
               })
             }>
-            <Title text={'Log In'} _color={COLORS.white} />
-          </TouchableOpacity>
-          {/* signUP */}
-          <TouchableOpacity
-            style={[styles.login, {backgroundColor: COLORS.white}]}
-            activeOpacity={0.9}
-            onPress={() => navigation.navigate('SignUp')}>
-            <Title text={'Sign Up'} _color={COLORS.primary} />
+            <Title text={'Sign Up'} _color={COLORS.white} />
           </TouchableOpacity>
         </View>
       </View>

@@ -12,7 +12,6 @@ export const getArticles = category => async dispatch => {
       type: GET_ARTICLES,
       payload: res,
     });
-    console.log('yeah');
   } catch (err) {
     console.log(err);
   }

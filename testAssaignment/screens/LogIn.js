@@ -23,8 +23,6 @@ import {
 export default function LogIn({navigation}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [submit, setSubmit] = useState(false);
-  const [DATA, setDATA] = useState([]);
   const dispatch = useDispatch();
 
   const {
@@ -41,8 +39,6 @@ export default function LogIn({navigation}) {
       return;
     }
     if (!loading) {
-      console.log('yes');
-      console.log(data);
       dispatch(
         saveToken(
           data?.access_token,

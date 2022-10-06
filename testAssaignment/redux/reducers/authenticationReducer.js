@@ -3,6 +3,7 @@ import {
   SIGN_IN,
   SIGN_OUT,
   GET_TOKEN,
+  SAVE_TOKEN_VIA_REFRESH,
 } from '../actions/authenticationAction';
 
 const initialState = {
@@ -15,7 +16,10 @@ const authenticationReducer = (state = initialState, action) => {
       const {jwtToken, expiry_Date, refresh_token, email} = action.payload;
       return {
         ...state,
-        authentication: [{jwtToken, expiry_Date, refresh_token, email}],
+        authentication: [
+          ...state.authentication,
+          {jwtToken, expiry_Date, refresh_token, email},
+        ],
       };
     }
     case SIGN_IN: {
@@ -31,12 +35,19 @@ const authenticationReducer = (state = initialState, action) => {
     case SIGN_OUT: {
       const {isSignedOut} = action.payload;
       return {
+        ...state,
         authentication: [{isSignedOut: true}],
       };
     }
     case GET_TOKEN: {
       return {
         ...state,
+      };
+    }
+    case SAVE_TOKEN_VIA_REFRESH: {
+      return {
+        ...state,
+        authentication: [...state.authentication.slice(-1), action.payload],
       };
     }
     default:
