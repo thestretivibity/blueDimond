@@ -1,10 +1,9 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-
 import {
   createStackNavigator,
   CardStyleInterpolators,
-  HeaderStyleInterpolators,
 } from '@react-navigation/stack';
 import {StyleSheet, StatusBar, Text} from 'react-native';
 import {store, persistor} from './redux/store/store';

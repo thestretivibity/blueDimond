@@ -46,7 +46,7 @@ DONE!
 
 ### Testing
 
-Tit `npm test -- --coverage`
+Type `npm test -- --coverage`
 
 ### Some limitations
 
