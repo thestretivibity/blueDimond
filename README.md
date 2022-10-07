@@ -25,7 +25,7 @@ Node 13 or greater is required. Development for iOS requires a Mac and Xcode 10 
 2. Type `npm install`
 3. Start metro `npx react-native start`
 4. - for Android type `npx react-native run-android`
-   - for iOS `cd ios` then `pod install`
+   - for iOS `cd ios` then `pod install` and finally go back to `testAssaignment` and hit `npx react-native run-ios`
 
 # Running The Application
 
@@ -53,3 +53,28 @@ Type `npm test -- --coverage`
 - This app was build for the purpose of demonstration and may contain some bugs, feel free to reporst them.
 - I'm using a free Key from NYT so there's a quota per day and it might affect the fast infinite scroll.
 - The Server needs a listerner to registred changes, so a SignUp data save needs a server reboot! (solved above).
+
+
+## Screenshots
+
+The app features clean design that adapts to Android and iOS specific guidlines.
+
+- Android
+
+![android-search](https://user-images.githubusercontent.com/37613252/194562232-231476b1-8b89-4a76-8875-a6436c6bb82d.jpeg)
+
+- iOS
+
+![iOSsearch](https://user-images.githubusercontent.com/37613252/194562182-b3adab9f-3f97-4664-9fab-9b3edc2c685d.png)
+
+- Articles and comments 
+
+![article](https://user-images.githubusercontent.com/37613252/194562277-a4bb669f-0b12-47a3-9b09-f0f300739d43.jpeg)
+
+- The token getting refreshed seamlessly without the user's notice.
+
+![refreshtoken](https://user-images.githubusercontent.com/37613252/194562467-4852dc05-650e-4810-9a78-14d247273073.png)
+
+
+
+
