@@ -50,7 +50,7 @@ Type `npm test -- --coverage`
 
 ### Some limitations
 
-- This app was build for the purpose of demonstration and may contain some bugs, feel free to reporst them.
+- This app was built for the purpose of demonstration and may include some bugs.
 - I'm using a free Key from NYT so there's a quota per day and it might affect the fast infinite scroll.
 - ~~The Server needs a listener to registred changes, so a SignUp data save needs a server reboot!~~ (solved above).
 
