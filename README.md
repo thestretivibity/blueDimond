@@ -40,7 +40,7 @@ Before starting, make sure to edit the .env file in `testAssaignment` and add yo
   To run the server while saving changes (recommneded)
   --install `sudo npm install -g --force nodemon`
   then you can start the server while listening on changes (like user regestration) by running the server through `nodemon server.js`
-- o to second Terminal window and type `npm start`
+- Go to second Terminal window and type `npm start`
 
 DONE!
 
