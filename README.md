@@ -4,8 +4,7 @@
 
 [Demo Video](https://user-images.githubusercontent.com/37613252/194440644-c41c23c4-f84d-419e-bcca-6797fb8fd98d.mp4)
 
-
-This is a basic React Native app that hits the NYT APIs via a local server, featuring redux state management, search for articles with infinite scroll pagination, token authentication with refresh and more!
+This is a basic React Native app that hits the NYT APIs via a local server, featuring redux state management, search for articles with infinite scroll pagination, token authentication with in-place refresh and more!
 
 ## Requirements
 

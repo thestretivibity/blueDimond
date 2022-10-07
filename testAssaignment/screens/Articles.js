@@ -78,7 +78,9 @@ export default function Article({route, navigation}) {
     );
   };
   return (
-    <SafeAreaView edges={['left', 'right']} style={styles.headerWrappr}>
+    <SafeAreaView
+      edges={['left', 'right', 'bottom']}
+      style={styles.headerWrappr}>
       <View style={styles.comments}>
         {loading ? (
           <ActivityIndicator size="large" color={COLORS.black} />

@@ -23,7 +23,6 @@ export default function Home({navigation}) {
 
   useEffect(() => {
     if (logOut) {
-      //navigation.dispatch(StackActions.replace('LogIn'));
       dispatch(signOut());
       navigation.reset({
         index: 0,
@@ -38,10 +37,12 @@ export default function Home({navigation}) {
   }, [logOut]);
 
   return (
-    <SafeAreaView edges={['left', 'right']} style={styles.headerWrappr}>
+    <SafeAreaView
+      edges={['left', 'right', 'bottom']}
+      style={styles.headerWrappr}>
       {/* search bar  */}
       <SearchBar navigation={navigation}></SearchBar>
-      <KeyboardAvoidingView
+      <View
         behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         style={styles.categoryContainer}>
         <View>
@@ -71,9 +72,9 @@ export default function Home({navigation}) {
             <BigTitle _color={COLORS.creme} text={'SCIENCE'}></BigTitle>
           </ImageBackground>
         </TouchableOpacity>
-      </KeyboardAvoidingView>
+      </View>
       <TouchableOpacity hitSlop={50} onPress={() => setLogOut(true)}>
-        <Title text={'Sign out'} />
+        <Title text={'SIGN OUT'} />
       </TouchableOpacity>
     </SafeAreaView>
   );

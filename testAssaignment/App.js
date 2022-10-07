@@ -1,5 +1,4 @@
-import 'react-native-gesture-handler';
-import React, {cloneElement} from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {
@@ -18,6 +17,7 @@ import TopNews from './screens/TopNews';
 import Search from './screens/Search';
 import Article from './screens/Articles';
 import Router from './screens/Router';
+import Toast from 'react-native-toast-message';
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -26,6 +26,7 @@ const App = () => {
         <NavigationContainer theme={{colors: {background: '#fff'}}}>
           <StackNavigator />
         </NavigationContainer>
+        <Toast />
       </PersistGate>
     </Provider>
   );

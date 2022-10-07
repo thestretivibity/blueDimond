@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-
 import {
   View,
   Text,
@@ -30,6 +29,7 @@ export default function LogIn({navigation}) {
     error,
     loading,
     request: logIn,
+    errorMessage,
   } = useApi(ApiCall.logIn, {
     email: username,
     password: password,
@@ -38,7 +38,7 @@ export default function LogIn({navigation}) {
     if (error) {
       return;
     }
-    if (!loading) {
+    if (!loading && !error) {
       dispatch(
         saveToken(
           data?.access_token,
@@ -58,7 +58,8 @@ export default function LogIn({navigation}) {
         ],
       });
     }
-  }, [loading, error]);
+  }, [loading]);
+
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.headerWrappr}>
       <Image

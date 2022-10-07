@@ -17,7 +17,7 @@ server.use(jsonServer.defaults());
 
 const SECRET_KEY = "123456789";
 
-const expiresIn = "100h";
+const expiresIn = "5s";
 
 function creatRefreshToken(payload) {
   return jwt.sign(payload, SECRET_KEY, { expiresIn: "60000s" });
@@ -68,6 +68,12 @@ server.post("/auth/register", (req, res) => {
     return;
   }
 
+  if (email.length == 0 || password.length == 0) {
+    res
+      .status(401)
+      .json({ status: 401, message: "User's Credentials Cannot Be Empty!" });
+    return;
+  }
   fs.readFile("./users.json", (err, data) => {
     if (err) {
       const status = 401;
@@ -111,6 +117,12 @@ server.post("/auth/login", (req, res) => {
   console.log("login endpoint called; request body:");
   console.log(req.body);
   const { email, password } = req.body;
+  if (email.length == 0 || password.length == 0) {
+    res
+      .status(401)
+      .json({ status: 401, message: "User's Credentials Cannot Be Empty!" });
+    return;
+  }
   if (isAuthenticated({ email, password }) === false) {
     const status = 401;
     const message = "Incorrect email or password";
@@ -130,7 +142,7 @@ server.get("/auth/refresh", (req, res) => {
   const e = req.query.email;
   if (verifyRefresh(r, e)) {
     const access_token = createToken({ e });
-    res.status(200).json({ access_token, refresh_token: r });
+    res.status(200).json({ access_token, refresh_token: r, email: e });
     return;
   }
   res.status(400).json({ erro: "revoked" });

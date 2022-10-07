@@ -20,7 +20,7 @@ const SearchBar = ({navigation}) => {
   const [isSearching, setIsSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const inputRef = useRef(null);
-  const queryList = useSelector(state => state.Queries.queries);
+  const queryList = useSelector(state => state?.Queries?.queries);
   const dispatchQuery = useDispatch();
 
   useEffect(() => {
@@ -68,9 +68,9 @@ const SearchBar = ({navigation}) => {
       </View>
       {isSearching && (
         // GOOD OLD TRICK FROM SALAH :_)
-        <View style={{height: '100%', paddingBottom: 1000}}>
+        <View style={{paddingBottom: 1000}}>
           {/* DISPLAYING THE HISTORY OF LAST 5 SERCHED QUERIES */}
-          {[...new Set(queryList.map(e => e.query))]
+          {[...new Set(queryList?.map(e => e?.query) ?? [])]
             .slice(0, 5)
             .map((element, index) => {
               return (
@@ -83,7 +83,7 @@ const SearchBar = ({navigation}) => {
               );
             })}
           {/* CLEAR SEARCH HISTORY */}
-          {queryList.length > 0 && (
+          {queryList?.length > 0 && (
             <TouchableOpacity
               onPress={() => dispatchQuery(clearQueries())}
               style={styles.searchHistory}>

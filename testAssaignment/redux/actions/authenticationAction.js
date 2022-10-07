@@ -43,10 +43,10 @@ export function _refreshToken() {
         dispatch({
           type: 'SAVE_TOKEN_VIA_REFRESH',
           payload: {
-            jwtToken: res.data.access_token,
+            jwtToken: res.data?.access_token,
             expiry_Date: '',
-            refresh_token: res.data.refresh_token,
-            email: '',
+            refresh_token: res.data?.refresh_token,
+            email: res.data?.email,
           },
         });
       }

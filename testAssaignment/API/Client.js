@@ -12,12 +12,8 @@ const apiClientPUBLIC = axios.create({
 // MAIN TOKENIZER METHOD WHEN LOGIN OR REGESTER USER
 const apiClientToken = axios.create({
   baseURL: AUTH_BASE_URL,
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    Accept: '*/*',
-  },
 });
-// AXIOS MIDDLEWERE THAT HANDLES PASSIG THE AUTHORIZATION TO THE SERVER
+// AXIOS INTERCEPTOR THAT HANDLES PASSIG THE AUTHORIZATION TO THE SERVER
 apiClient.interceptors.request.use(
   config => {
     config.headers['Authorization'] = `Bearer ${
@@ -42,16 +38,35 @@ apiClient.interceptors.response.use(
     return response;
   },
   async error => {
-    if (error.response.status == 403) {
-      store.dispatch(_refreshToken());
-
-      console.log(store.getState().Authentications?.authentication[1]);
-
-      return Promise.resolve(error);
+    const originalRequest = error.config;
+    if (error.response.status === 403 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      await store.dispatch(_refreshToken());
+      return apiClient(originalRequest);
     } else {
-      console.warn('network error');
-      return Promise.resolve(error);
+      return error.response;
     }
+  },
+);
+
+// LOGIN AND TOKEN LOGISTICS HANDLING
+apiClientToken.interceptors.request.use(
+  config => {
+    config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  },
+);
+
+apiClientToken.interceptors.response.use(
+  response => {
+    return response;
+  },
+  async error => {
+    if (error.response.status == 401) return error.response;
+    return error;
   },
 );
 

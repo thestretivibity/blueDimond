@@ -35,7 +35,7 @@ export default function Search({route, navigation}) {
   }, [refrech]);
   useEffect(() => {
     if (error) navigation.navigate('Home');
-    if (!loading) {
+    if (!loading && !error) {
       setResult([...result, ...data?.response?.docs]);
     }
   }, [loading, error]);
