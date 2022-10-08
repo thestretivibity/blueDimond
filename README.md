@@ -8,7 +8,7 @@ This is a basic React Native app that hits the NYT APIs via a local server, feat
 
 ## Requirements
 
-This project is build using React Native 0.68.3
+This project is build using React Native `0.68.3`.
 Node 13 or greater is required. Development for iOS requires a Mac and Xcode 10 or up, and will target iOS 11 and up.
 
 # Installation
