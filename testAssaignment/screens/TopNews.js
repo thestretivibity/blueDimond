@@ -50,7 +50,7 @@ export default function TopNews({route, navigation}) {
       style={styles.headerWrappr}>
       <View style={styles.title}>
         <BigTitle text={`${category}`.toUpperCase()} />
-        <Text style={{color: '#000'}}>Test From TopNews</Text>
+        <Text style={{color: '#000'}}>Category</Text>
       </View>
       <View
         style={{

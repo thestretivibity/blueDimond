@@ -52,4 +52,4 @@ Type `npm test -- --coverage`
 
 - This app was build for the purpose of demonstration and may contain some bugs, feel free to reporst them.
 - I'm using a free Key from NYT so there's a quota per day and it might affect the fast infinite scroll.
-- The Server needs a listerner to registred changes, so a SignUp data save needs a server reboot! (solved above).
+- ~~The Server needs a listerner to registred changes, so a SignUp data save needs a server reboot! (solved above).

@@ -51,7 +51,8 @@ const SearchBar = ({navigation}) => {
       <View style={[styles.mainView]}>
         <TextInput
           ref={inputRef}
-          style={{flex: 1}}
+          style={{flex: 1, color: COLORS.black}}
+          placeholderTextColor={COLORS.lightGray}
           fontSize={SIZES.underTitle}
           onChangeText={text => setSearchQuery(text)}
           onSubmitEditing={() => HandleSearch()}
@@ -78,7 +79,7 @@ const SearchBar = ({navigation}) => {
                   style={styles.searchHistory}
                   key={index}
                   onPress={() => HandleSearch(element)}>
-                  <UnderTitle text={element} />
+                  <UnderTitle text={element} color={COLORS.lightGray} />
                 </TouchableOpacity>
               );
             })}

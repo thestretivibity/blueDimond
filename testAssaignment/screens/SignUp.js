@@ -81,6 +81,7 @@ export default function SignUp({navigation}) {
             keyboardType="email-address"
             placeholder="Type your email adress"
             onChangeText={text => setUsername(text)}
+            placeholderTextColor={COLORS.lightGray}
           />
         </View>
         {/* password */}
@@ -91,6 +92,7 @@ export default function SignUp({navigation}) {
             label="Password"
             returnKeyType="done"
             onChangeText={text => setPassword(text)}
+            placeholderTextColor={COLORS.lightGray}
             placeholder="Type your password"
             secureTextEntry
           />

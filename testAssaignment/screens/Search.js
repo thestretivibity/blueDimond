@@ -53,10 +53,11 @@ export default function Search({route, navigation}) {
     />
   );
   return (
-    <SafeAreaView edges={['left', 'right']} style={styles.headerWrappr}>
+    <SafeAreaView
+      edges={['left', 'right', 'bottom']}
+      style={styles.headerWrappr}>
       <View style={styles.title}>
         <BigTitle text={`"${query}"`} />
-        <Text style={{color: '#000'}}>Test From Search</Text>
       </View>
       <View>
         {(!loading || page > 0) && (
