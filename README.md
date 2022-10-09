@@ -8,7 +8,7 @@ This is a basic React Native app that hits the NYT APIs via a local server, feat
 
 ## Requirements
 
-This project is build using React Native 69.3.
+This project is build using React Native `0.68.3`.
 Node 13 or greater is required. Development for iOS requires a Mac and Xcode 10 or up, and will target iOS 11 and up.
 
 # Installation
@@ -25,11 +25,11 @@ Node 13 or greater is required. Development for iOS requires a Mac and Xcode 10 
 2. Type `npm install`
 3. Start metro `npx react-native start`
 4. - for Android type `npx react-native run-android`
-   - for iOS `cd ios` then `pod install`
+   - for iOS `cd ios` then `pod install` and finally go back to `testAssaignment` and hit `npx react-native run-ios`
 
 # Running The Application
 
-** Very important **
+_Very important_
 
 Before starting, make sure to edit the .env file in `testAssaignment` and add your machine IP4 address instead.
 
@@ -40,7 +40,7 @@ Before starting, make sure to edit the .env file in `testAssaignment` and add yo
   To run the server while saving changes (recommneded)
   --install `sudo npm install -g --force nodemon`
   then you can start the server while listening on changes (like user regestration) by running the server through `nodemon server.js`
-- o to second Terminal window and type `npm start`
+- Go to second Terminal window and type `npm start`
 
 DONE!
 
@@ -50,6 +50,6 @@ Type `npm test -- --coverage`
 
 ### Some limitations
 
-- This app was build for the purpose of demonstration and may contain some bugs, feel free to reporst them.
+- This app was built for the purpose of demonstration and may include some bugs.
 - I'm using a free Key from NYT so there's a quota per day and it might affect the fast infinite scroll.
-- ~~The Server needs a listerner to registred changes, so a SignUp data save needs a server reboot! (solved above).
+- The Server needs a listerner to registred changes, so a SignUp data save needs a server reboot! (solved above).
