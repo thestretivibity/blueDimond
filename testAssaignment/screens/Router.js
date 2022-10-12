@@ -4,12 +4,7 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {StackActions} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  getToken,
-  saveToken,
-  signIn,
-  signOut,
-} from '../redux/actions/authenticationAction';
+import {getToken} from '../redux/actions/authenticationAction';
 export default function Router({navigation}) {
   const dispatch = useDispatch();
   const authentication = useSelector(
@@ -18,8 +13,7 @@ export default function Router({navigation}) {
   const [isLoading, setIsLoading] = useState(true);
   const [isSignedOut, setIsSignedOut] = useState('');
   const handleInitialRouting = () => {
-    //console.log(authentication);
-    if (!authentication[0]?.isSignedOut) {
+    if (authentication.length > 0 && !authentication[0]?.isSignedOut) {
       setIsSignedOut(authentication[0]?.isSignedOut);
       navigation.dispatch(StackActions.replace('Home'));
       return;
@@ -30,10 +24,10 @@ export default function Router({navigation}) {
   };
   useEffect(() => {
     if (isLoading) {
-      dispatch(getToken());
+      if (!authentication[0]?.isSignedOut) dispatch(getToken());
       handleInitialRouting();
     }
-  }, [setIsLoading]);
+  }, [isLoading]);
 
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.headerWrappr}>
